@@ -1,0 +1,6 @@
+#with our docker ignore file we gonna list every single file and folder that we don't ever copy into our docker container 
+node_modules
+Dockerfile
+.dockerignore
+.git
+.gitignore

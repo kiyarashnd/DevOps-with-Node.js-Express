@@ -1,17 +1,19 @@
-# create one layer of image (hey look we downloaded the node image from docker hub and cache that result)
+# look we downloaded the node image from docker hub and cache that result (baes image)
 FROM node:15
-# we set the working directory and cache result of that
+# we set the working directory of container and cache result of that
 WORKDIR  /app
 COPY package.json .
 # build the container
 RUN npm install
+#Copy every thing in our file to container or image (./)
 COPY . ./
 EXPOSE 3000
 # run the container
-CMD ["node","index.js"]
+CMD ["node","index.js"] 
 
-#for build our docker image : docker build .
-#with second build docker image every thing gonna be faster because caching
+
+# for build our docker image : docker build .
+# with second build docker image every thing gonna be faster because caching
 # for see list of images : docker image ls
 # for remove an existion image docker image rm <IMAGE_ID>
 # for make a image with name : docker build -t node-app-image .
