@@ -7,9 +7,10 @@ COPY package.json .
 RUN npm install
 #Copy every thing in our file to container or image (./)
 COPY . ./
-EXPOSE 3000
+ENV PORT 3000
+EXPOSE $PORT 
 # run the container
-CMD ["node","index.js"] 
+CMD ["npm","run","dev"] 
 
 
 # for build our docker image : docker build .
