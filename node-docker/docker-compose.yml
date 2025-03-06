@@ -1,13 +1,20 @@
 version: '3'
 services:
-  my-node-app:
+  node-app:
+    # this build line tells Docker Compose where to find the Dockerfile
     build: .
     ports:
       - '3000:3000'
-    volumes:
-      - ./:/app
-      - /app/node_modules
     environment:
       - PORT=3000
-    # env_file:
-    #   - ./.env
+  mongo:
+    # here mongo is name of service that can be anything
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=sanjeev
+      - MONGO_INITDB_ROOT_PASSWORD=mypassword
+    volumes:
+      # mongo-db is name that we give to volums
+      - mongo-db:/data/db
+volumes:
+  mongo-db:

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  node-app:
+    build:
+      # in context we specify location of docker file
+      context: .
+      args:
+        NODE_ENV: development # ✅ Pass this to the Dockerfile
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
