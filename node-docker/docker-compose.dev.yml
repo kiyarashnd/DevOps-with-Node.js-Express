@@ -1,5 +1,8 @@
 version: '3'
 services:
+  nginx:
+    ports:
+      - '3000:80'
   node-app:
     build:
       # in context we specify location of docker file
@@ -11,4 +14,13 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
+      - MONGO_USER=sanjeev
+      - MONGO_PASSWORD=mypassword
+      - SESSION_SECRET=secret
     command: npm run dev
+  mongo:
+    # here mongo is name of service that can be anything
+    # image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=sanjeev
+      - MONGO_INITDB_ROOT_PASSWORD=mypassword

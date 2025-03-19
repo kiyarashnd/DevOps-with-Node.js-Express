@@ -1,5 +1,5 @@
 # look we downloaded the node image from docker hub and cache that result (baes image)
-FROM node:15
+FROM node:20
 # we set the working directory of container and cache result of that
 WORKDIR  /app
 COPY package.json .

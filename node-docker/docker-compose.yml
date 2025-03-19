@@ -1,12 +1,20 @@
 version: '3'
 services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - '3000:80'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
   node-app:
     # this build line tells Docker Compose where to find the Dockerfile
     build: .
-    ports:
-      - '3000:3000'
+    # ports:
+    #   - '3000:3000'
     environment:
       - PORT=3000
+    depends_on:
+      - mongo
   mongo:
     # here mongo is name of service that can be anything
     image: mongo
@@ -16,5 +24,7 @@ services:
     volumes:
       # mongo-db is name that we give to volums
       - mongo-db:/data/db
+  redis:
+    image: redis
 volumes:
   mongo-db:
