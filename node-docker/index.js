@@ -30,21 +30,24 @@ const redisStore = new ConnectRedis({
 
 const postRouter = require('./routes/postRoutes');
 const userRouter = require('./routes/userRoutes');
+const fileRouter = require('./routes/fileRoutes');
+
+const minioClient = require('./services/minioClient');
 
 const app = express();
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
 
-const conncetWithRetry = () => {
+const connectWithRetry = () => {
   mongoose
     .connect(mongoURL)
-    .then(() => console.log('succesfully connected to DB'))
+    .then(() => console.log('Successfully connected to MongoDB'))
     .catch((e) => {
       console.log(e);
-      setTimeout(conncetWithRetry, 5000);
+      setTimeout(connectWithRetry, 5000);
     });
 };
 
-conncetWithRetry();
+connectWithRetry();
 
 //app.use(session : ) exists on express for every request read data from session
 //with store:redisStore we use redis for set data on session
@@ -90,6 +93,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/v1/posts', postRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/files', fileRouter);
+
 
 const port = process.env.PORT || 3000;
 
